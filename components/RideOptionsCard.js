@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
 import React, { useState } from "react";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectTravelTimeInformation } from "../slices/navSlice";
 
 const data = [
   {
@@ -25,9 +27,13 @@ const data = [
   },
 ];
 
+// if we have SURGE pricing, this goes up
+const SURGE_CHARGE_RATE = 1.5;
+
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
   return (
     <View className="bg-white flex-grow">
@@ -38,7 +44,9 @@ const RideOptionsCard = () => {
         >
           <Icon name="chevron-left" type="font-awesome" />
         </TouchableOpacity>
-        <Text className="text-center py-5 text-xl">Select a Ride:</Text>
+        <Text className="text-center py-5 text-xl">
+          Select a Ride - {travelTimeInformation?.distance.text}
+        </Text>
       </View>
 
       <FlatList
@@ -61,9 +69,9 @@ const RideOptionsCard = () => {
                 uri: image,
               }}
             />
-            <View className="-ml-12">
+            <View className="-ml-4 ">
               <Text className="text-xl font-semibold">{title}</Text>
-              <Text>Travel Time...</Text>
+              <Text>{travelTimeInformation?.duration.text}</Text>
             </View>
             <Text className="text-xl">$99</Text>
           </TouchableOpacity>
