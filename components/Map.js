@@ -15,7 +15,7 @@ const Map = () => {
     if (!origin || !destination) return;
 
     //Zoom & fit to markers
-    mapRef.current.fitToSuppliedMarkers(["destination", "origin"], {
+    mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: {
         top: 50,
         right: 50,
