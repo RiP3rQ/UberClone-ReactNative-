@@ -25,7 +25,6 @@ const HomeScreen = () => {
           }}
           className="ml-2"
         />
-
         <GooglePlacesAutocomplete
           nearbyPlacesAPI="GooglePlacesSearch"
           placeholder="Where from?"
