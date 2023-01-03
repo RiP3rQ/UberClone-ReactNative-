@@ -4,6 +4,8 @@ import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectTravelTimeInformation } from "../slices/navSlice";
+import "intl";
+import "intl/locale-data/jsonp/en";
 
 const data = [
   {
@@ -73,7 +75,17 @@ const RideOptionsCard = () => {
               <Text className="text-xl font-semibold">{title}</Text>
               <Text>{travelTimeInformation?.duration.text}</Text>
             </View>
-            <Text className="text-xl">$99</Text>
+            <Text className="text-lg">
+              {new Intl.NumberFormat("en-gb", {
+                style: "currency",
+                currency: "GBP",
+              }).format(
+                (travelTimeInformation?.duration.value *
+                  SURGE_CHARGE_RATE *
+                  multiplier) /
+                  100
+              )}
+            </Text>
           </TouchableOpacity>
         )}
       />
