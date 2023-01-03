@@ -3,6 +3,7 @@ import {
   Text,
   useWindowDimensions,
   TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { forwardRef, useCallback, useImperativeHandle } from "react";
 import Animated, {
@@ -99,7 +100,12 @@ const AddNavFavorites = forwardRef(
 
     return (
       <>
-        <TouchableWithoutFeedback onPress={() => close()}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            close();
+            Keyboard.dismiss();
+          }}
+        >
           <Animated.View
             className="absolute top-0 right-0 bottom-0 left-0"
             style={[

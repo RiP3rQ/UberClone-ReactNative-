@@ -4,25 +4,38 @@ import {
   Image,
   useWindowDimensions,
   TouchableOpacity,
+  TextInput,
+  Keyboard,
 } from "react-native";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NavOptions from "../components/NavOptions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
-import { setDestination, setOrigin } from "../slices/navSlice";
+import {
+  setDestination,
+  setOrigin,
+  setFavoritePlaces,
+} from "../slices/navSlice";
 import NavFavorites from "../components/NavFavorites";
 import AddNavFavorites from "../components/AddNavFavorites";
-import { Button, Icon } from "@rneui/base";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const { height } = useWindowDimensions();
   const bottomSheetRef = useRef(null);
+  const [name, setName] = useState("");
+  const [icon, setIcon] = useState("");
+  const [newPlaceLocation, setNewPlaceLocation] = useState(null);
 
   const pressHandler = useCallback(() => {
     bottomSheetRef.current.expand();
+  }, []);
+
+  const closeModal = useCallback(() => {
+    bottomSheetRef.current.close();
+    Keyboard.dismiss();
   }, []);
 
   return (
@@ -84,13 +97,98 @@ const HomeScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
       <AddNavFavorites
-        activeHeight={height * 0.5}
+        activeHeight={height * 0.8}
         ref={bottomSheetRef}
         backgroundColor={"#F2F4F1"}
         backDropColor={"black"}
       >
-        <View className="flex-1"></View>
+        {/* INSIDE OF MODAL */}
+        <View className="flex-1 bg-white h-full">
+          <Text className="text-xl font-semibold text-center">
+            ADD NEW FAVORITE PLACE:
+          </Text>
+
+          <View className="px-2">
+            <GooglePlacesAutocomplete
+              nearbyPlacesAPI="GooglePlacesSearch"
+              placeholder="Choose location of the place?"
+              debounce={400}
+              query={{
+                key: GOOGLE_MAPS_APIKEY,
+                language: "en",
+              }}
+              styles={{
+                container: {
+                  flex: 0,
+                  zIndex: 50,
+                },
+                textInput: {
+                  fontSize: 18,
+                },
+              }}
+              minLength={2}
+              enablePoweredByContainer={false}
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                setNewPlaceLocation({
+                  location: details.geometry.location,
+                  description: data.description,
+                });
+              }}
+              returnKeyType={"search"}
+            />
+          </View>
+
+          <View className="flex-row justify-between h-12 items-center px-2">
+            <Text className="text-lg font-semibold">Name of the Place:</Text>
+            <TextInput
+              placeholder="Home / Work / Restaurant"
+              className="flex-1 text-lg pl-3"
+              onChangeText={setName}
+              value={name}
+            />
+          </View>
+
+          <View className="flex-row justify-between h-12 items-center px-2">
+            <Text className="text-lg font-semibold">Icon of the place:</Text>
+            <TextInput
+              placeholder="home , briefcase, etc."
+              className="flex-1 text-lg pl-3"
+              onChangeText={setIcon}
+              value={icon}
+            />
+          </View>
+
+          <View className=" items-center justify-center">
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(
+                  setFavoritePlaces({
+                    id:
+                      name +
+                      Math.floor(Math.random() * (9999 - 1000 + 1) + 1000),
+                    name: name,
+                    icon: icon,
+                    location: newPlaceLocation.location,
+                    description: newPlaceLocation.description,
+                  })
+                );
+
+                setNewPlaceLocation(null);
+                setIcon("");
+                setName("");
+                closeModal();
+              }}
+              className="bg-black rounded-full h-14 w-44 items-center justify-center"
+            >
+              <Text className="text-center text-white font-semibold text-xl">
+                Add New Place
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </AddNavFavorites>
     </SafeAreaView>
   );
