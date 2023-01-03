@@ -4,6 +4,7 @@ const initialState = {
   origin: null,
   destination: null,
   travelTimeInformation: null,
+  favoritePlaces: [],
 };
 
 export const navSlice = createSlice({
@@ -19,16 +20,24 @@ export const navSlice = createSlice({
     setTravelTimeInformation: (state, action) => {
       state.travelTimeInformation = action.payload;
     },
+    setFavoritePlaces: (state, action) => {
+      state.favoritePlaces = [...state.favoritePlaces, action.payload];
+    },
   },
 });
 
-export const { setOrigin, setDestination, setTravelTimeInformation } =
-  navSlice.actions;
+export const {
+  setOrigin,
+  setDestination,
+  setTravelTimeInformation,
+  setFavoritePlaces,
+} = navSlice.actions;
 
 // Selectors
 export const selectOrigin = (state) => state.nav.origin;
 export const selectDestination = (state) => state.nav.destination;
 export const selectTravelTimeInformation = (state) =>
   state.nav.travelTimeInformation;
+export const selectFavoritePlaces = (state) => state.nav.favoritePlaces;
 
 export default navSlice.reducer;

@@ -26,8 +26,8 @@ const data = [
 const NavFavorites = () => {
   return (
     <View>
-      <Text className="font-semibold text-2xl px-3 py-2">
-        Your's favorite places:{" "}
+      <Text className="relative font-semibold text-2xl px-3 py-3">
+        Favorite places:
       </Text>
       <FlatList
         data={data}

@@ -1,12 +1,12 @@
 import { Provider } from "react-redux";
 import HomeScreen from "./screens/HomeScreen";
 import { store } from "./store";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MapScreen from "./screens/MapScreen";
 import EatsScreen from "./screens/EatsScreen";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +14,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <SafeAreaProvider>
+        <GestureHandlerRootView className="flex-1">
           <KeyboardAvoidingView
             className="flex-1"
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -44,7 +44,7 @@ export default function App() {
               />
             </Stack.Navigator>
           </KeyboardAvoidingView>
-        </SafeAreaProvider>
+        </GestureHandlerRootView>
       </NavigationContainer>
     </Provider>
   );
