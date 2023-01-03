@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const RideOptions = () => {
+const RideOptionsCard = () => {
   return (
     <View>
-      <Text>RideOptions</Text>
+      <Text>RideOptionsCard</Text>
     </View>
   );
 };
 
-export default RideOptions;
+export default RideOptionsCard;

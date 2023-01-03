@@ -4,6 +4,7 @@ import Map from "../components/Map";
 import MapView, { Marker } from "react-native-maps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavigateCard from "../components/NavigateCard";
+import RideOptionsCard from "../components/RideOptionsCard";
 
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,13 @@ const MapScreen = () => {
           <Stack.Screen
             name="NavigateCard"
             component={NavigateCard}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="RideOptionsCard"
+            component={RideOptionsCard}
             options={{
               headerShown: false,
             }}
