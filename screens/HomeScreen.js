@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import NavOptions from "../components/NavOptions";
+import NavOptions from "../components/Uber/NavOptions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
@@ -18,8 +18,8 @@ import {
   setOrigin,
   setFavoritePlaces,
 } from "../slices/navSlice";
-import NavFavorites from "../components/NavFavorites";
-import AddNavFavorites from "../components/AddNavFavorites";
+import NavFavorites from "../components/Uber/NavFavorites";
+import AddNavFavorites from "../components/Uber/AddNavFavorites";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const HomeScreen = ({ route }) => {

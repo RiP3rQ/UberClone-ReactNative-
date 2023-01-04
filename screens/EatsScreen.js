@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import HeaderTabs from "../components/HeaderTabs";
-import SearchRestaurants from "../components/SearchRestaurants";
-import FoodCategories from "../components/FoodCategories";
+import HeaderTabs from "../components/Eats/HeaderTabs";
+import SearchRestaurants from "../components/Eats/SearchRestaurants";
+import FoodCategories from "../components/Eats/FoodCategories";
 
 const EatsScreen = () => {
   return (

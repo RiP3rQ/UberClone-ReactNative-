@@ -4,7 +4,7 @@ import SafeAreaView from "react-native-safe-area-view";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
-import { setDestination } from "../slices/navSlice";
+import { setDestination } from "../../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import NavFavorites from "./NavFavorites";
 import Ionicons from "react-native-vector-icons/Ionicons";

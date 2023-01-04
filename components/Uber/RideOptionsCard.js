@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectTravelTimeInformation,
   setDestination,
-} from "../slices/navSlice";
+} from "../../slices/navSlice";
 import "intl";
 import "intl/locale-data/jsonp/en";
 import { FlatList } from "react-native-gesture-handler";

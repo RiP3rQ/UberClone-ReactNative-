@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { selectOrigin } from "../slices/navSlice";
+import { selectOrigin } from "../../slices/navSlice";
 import { FlatList } from "react-native-gesture-handler";
 
 const data = [

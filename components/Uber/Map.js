@@ -6,7 +6,7 @@ import {
   selectOrigin,
   selectDestination,
   setTravelTimeInformation,
-} from "../slices/navSlice";
+} from "../../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 

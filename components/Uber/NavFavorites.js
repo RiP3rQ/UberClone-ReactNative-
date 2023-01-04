@@ -6,7 +6,7 @@ import {
   selectFavoritePlaces,
   setDestination,
   setOrigin,
-} from "../slices/navSlice";
+} from "../../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";

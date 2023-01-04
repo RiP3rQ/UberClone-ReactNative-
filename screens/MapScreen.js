@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import Map from "../components/Map";
+import Map from "../components/Uber/Map";
 import MapView, { Marker } from "react-native-maps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import NavigateCard from "../components/NavigateCard";
-import RideOptionsCard from "../components/RideOptionsCard";
+import NavigateCard from "../components/Uber/NavigateCard";
+import RideOptionsCard from "../components/Uber/RideOptionsCard";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
