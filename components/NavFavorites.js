@@ -90,7 +90,7 @@ const NavFavorites = ({ route }) => {
               )}
             />
           ) : (
-            <View className="items-center justify-center">
+            <View className="items-center justify-center mt-12">
               <Text className="pb-5 font-bold px-6 ">
                 You don't have any favorite places added. You can change it
                 right now.

@@ -12,12 +12,14 @@ const data = [
     title: "Get a Ride",
     image: "https://cdn3.iconfinder.com/data/icons/travel-emoji/50/Car-512.png",
     screen: "MapScreen",
+    disabledOnOriginNull: true,
   },
   {
     id: "456",
     title: "Order Food",
     image: "https://cdn-icons-png.flaticon.com/512/1046/1046791.png",
     screen: "EatsScreen",
+    disabledOnOriginNull: false,
   },
 ];
 
@@ -34,9 +36,13 @@ const NavOptions = () => {
         <TouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
           className="p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40 rounded-2xl"
-          disabled={!origin}
+          disabled={!origin && item.disabledOnOriginNull}
         >
-          <View className={`${!origin && "opacity-25"}`}>
+          <View
+            className={`${
+              !origin && item.disabledOnOriginNull && "opacity-25"
+            }`}
+          >
             <Image
               style={{
                 width: 120,
