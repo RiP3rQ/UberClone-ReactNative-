@@ -46,7 +46,7 @@ const NavOptions = ({ route, reference }) => {
           <View
             className={`${
               !origin && item.disabledOnOriginNull && "opacity-25"
-            }`}
+            } items-center justify-center mr-5`}
           >
             <Image
               style={{
