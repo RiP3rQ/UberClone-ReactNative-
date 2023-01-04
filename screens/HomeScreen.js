@@ -21,7 +21,7 @@ import {
 import NavFavorites from "../components/NavFavorites";
 import AddNavFavorites from "../components/AddNavFavorites";
 
-const HomeScreen = () => {
+const HomeScreen = ({ route }) => {
   const dispatch = useDispatch();
   const { height } = useWindowDimensions();
   const bottomSheetRef = useRef(null);
@@ -35,7 +35,6 @@ const HomeScreen = () => {
 
   const closeModal = useCallback(() => {
     bottomSheetRef.current.close();
-    Keyboard.dismiss();
   }, []);
 
   return (
@@ -85,17 +84,21 @@ const HomeScreen = () => {
         />
 
         <NavOptions />
-        <NavFavorites />
 
         {/* OPEN MODAL BUTTON */}
-        <TouchableOpacity
-          onPress={() => pressHandler()}
-          className="absolute bottom-40 right-8 w-24 bg-black rounded-full h-8 items-center justify-center"
-        >
-          <Text className="font-semibold text-white text-center text-lg">
-            Add
-          </Text>
-        </TouchableOpacity>
+        <View className="relative">
+          <TouchableOpacity
+            onPress={() => pressHandler()}
+            className="absolute top-1 right-8 w-24 bg-black rounded-full h-8 items-center justify-center z-10"
+          >
+            <Text className="font-semibold text-white text-center text-lg">
+              Add
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="relative">
+          <NavFavorites route={route} />
+        </View>
       </View>
 
       <AddNavFavorites
@@ -158,6 +161,7 @@ const HomeScreen = () => {
               className="flex-1 text-lg pl-3"
               onChangeText={setIcon}
               value={icon}
+              autoCapitalize="none"
             />
           </View>
 
@@ -179,6 +183,7 @@ const HomeScreen = () => {
                 setNewPlaceLocation(null);
                 setIcon("");
                 setName("");
+                Keyboard.dismiss();
                 closeModal();
               }}
               className="bg-black rounded-full h-14 w-44 items-center justify-center"

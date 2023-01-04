@@ -27,6 +27,7 @@ export default function App() {
                 options={{
                   headerShown: false,
                 }}
+                initialParams={{ useAsOrigin: "true" }}
               />
               <Stack.Screen
                 name="MapScreen"

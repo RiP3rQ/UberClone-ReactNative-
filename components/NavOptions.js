@@ -1,9 +1,10 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { selectOrigin } from "../slices/navSlice";
+import { FlatList } from "react-native-gesture-handler";
 
 const data = [
   {

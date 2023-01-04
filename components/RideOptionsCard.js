@@ -1,11 +1,15 @@
-import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
-import { selectTravelTimeInformation } from "../slices/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectTravelTimeInformation,
+  setDestination,
+} from "../slices/navSlice";
 import "intl";
 import "intl/locale-data/jsonp/en";
+import { FlatList } from "react-native-gesture-handler";
 
 const data = [
   {
@@ -36,13 +40,24 @@ const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const travelTimeInformation = useSelector(selectTravelTimeInformation);
+  const dispatch = useDispatch();
 
   return (
     <View className="bg-white flex-grow">
       <View>
         <TouchableOpacity
           className="absolute top-3 left-5 p-3 z-50 rounded-full"
-          onPress={() => navigation.navigate("NavigateCard")}
+          onPress={() => {
+            navigation.navigate("NavigateCard", {
+              useAsOrigin: "false",
+            });
+            dispatch(
+              setDestination({
+                location: null,
+                description: null,
+              })
+            );
+          }}
         >
           <Icon name="chevron-left" type="font-awesome" />
         </TouchableOpacity>
@@ -80,7 +95,7 @@ const RideOptionsCard = () => {
                 style: "currency",
                 currency: "GBP",
               }).format(
-                (travelTimeInformation?.duration.value *
+                (travelTimeInformation?.duration?.value *
                   SURGE_CHARGE_RATE *
                   multiplier) /
                   100
