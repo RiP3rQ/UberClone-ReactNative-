@@ -33,7 +33,7 @@ const NavFavorites = ({ route }) => {
   const { useAsOrigin } = route.params;
 
   return (
-    <SafeAreaView className=" w-full relative -mt-10">
+    <SafeAreaView className=" w-full relative -mt-10 ">
       <Text className="font-semibold text-2xl px-3 py-3">Favorite places:</Text>
       <View className="absolute top-14 left-0 w-full h-60 mt-5">
         <View className="">

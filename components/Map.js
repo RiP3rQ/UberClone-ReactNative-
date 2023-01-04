@@ -21,8 +21,9 @@ const Map = ({ route }) => {
 
     //Zoom & fit to markers
     mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+      animated: true,
       edgePadding: {
-        top: 50,
+        top: 150,
         right: 50,
         bottom: 50,
         left: 50,

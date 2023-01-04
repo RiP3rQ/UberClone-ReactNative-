@@ -20,6 +20,7 @@ import {
 } from "../slices/navSlice";
 import NavFavorites from "../components/NavFavorites";
 import AddNavFavorites from "../components/AddNavFavorites";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const HomeScreen = ({ route }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const HomeScreen = ({ route }) => {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState("");
   const [newPlaceLocation, setNewPlaceLocation] = useState(null);
+  const autoComplete = useRef(null);
+  const autoCompleteModal = useRef(null);
 
   const pressHandler = useCallback(() => {
     bottomSheetRef.current.expand();
@@ -52,6 +55,7 @@ const HomeScreen = ({ route }) => {
           className="ml-2"
         />
         <GooglePlacesAutocomplete
+          ref={autoComplete}
           nearbyPlacesAPI="GooglePlacesSearch"
           placeholder="Where from?"
           debounce={400}
@@ -70,6 +74,7 @@ const HomeScreen = ({ route }) => {
           minLength={2}
           enablePoweredByContainer={false}
           fetchDetails={true}
+          textInputProps={{ clearButtonMode: "never" }}
           onPress={(data, details = null) => {
             dispatch(
               setOrigin({
@@ -81,9 +86,20 @@ const HomeScreen = ({ route }) => {
             dispatch(setDestination(null));
           }}
           returnKeyType={"search"}
+          renderRightButton={() => (
+            <TouchableOpacity
+              onPress={() => {
+                autoComplete.current.clear();
+                dispatch(setOrigin(null));
+              }}
+              className="flex-row items-center "
+            >
+              <Ionicons name="close-circle-outline" size={24} />
+            </TouchableOpacity>
+          )}
         />
 
-        <NavOptions />
+        <NavOptions route={route} reference={autoComplete} />
 
         {/* OPEN MODAL BUTTON */}
         <View className="relative">
@@ -115,6 +131,7 @@ const HomeScreen = ({ route }) => {
 
           <View className="px-2">
             <GooglePlacesAutocomplete
+              ref={autoCompleteModal}
               nearbyPlacesAPI="GooglePlacesSearch"
               placeholder="Choose location of the place?"
               debounce={400}
@@ -134,6 +151,7 @@ const HomeScreen = ({ route }) => {
               minLength={2}
               enablePoweredByContainer={false}
               fetchDetails={true}
+              textInputProps={{ clearButtonMode: "never" }}
               onPress={(data, details = null) => {
                 setNewPlaceLocation({
                   location: details.geometry.location,
@@ -141,6 +159,17 @@ const HomeScreen = ({ route }) => {
                 });
               }}
               returnKeyType={"search"}
+              renderRightButton={() => (
+                <TouchableOpacity
+                  onPress={() => {
+                    autoCompleteModal.current.clear();
+                    setNewPlaceLocation(null);
+                  }}
+                  className="flex-row items-center "
+                >
+                  <Ionicons name="close-circle-outline" size={24} />
+                </TouchableOpacity>
+              )}
             />
           </View>
 
@@ -185,6 +214,7 @@ const HomeScreen = ({ route }) => {
                 setName("");
                 Keyboard.dismiss();
                 closeModal();
+                autoCompleteModal.current.clear();
               }}
               className="bg-black rounded-full h-14 w-44 items-center justify-center"
             >

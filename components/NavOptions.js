@@ -23,7 +23,7 @@ const data = [
   },
 ];
 
-const NavOptions = () => {
+const NavOptions = ({ route, reference }) => {
   const navigation = useNavigation();
   const origin = useSelector(selectOrigin);
 
@@ -34,7 +34,12 @@ const NavOptions = () => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => navigation.navigate(item.screen)}
+          onPress={() => {
+            navigation.navigate(item.screen, {
+              useAsOrigin: false,
+            });
+            reference.current.clear();
+          }}
           className="p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40 rounded-2xl"
           disabled={!origin && item.disabledOnOriginNull}
         >

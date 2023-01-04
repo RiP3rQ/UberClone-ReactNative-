@@ -43,7 +43,7 @@ const MapScreen = ({ route }) => {
         <Map route={route} />
       </View>
 
-      <View className="h-1/2">
+      <View className="h-1/2 bg-white">
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"
