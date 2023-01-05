@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLE_MAPS_APIKEY } from "@env";
+import { GOOGLE_MAPS_PLACES_APIKEY } from "@env";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesing from "react-native-vector-icons/AntDesign";
 import { useRef } from "react";
 
-const SearchRestaurants = () => {
+const SearchRestaurants = ({ cityHandler }) => {
   const autoComplete = useRef(null);
   return (
     <View className="mt-4 flex-row">
@@ -31,8 +31,7 @@ const SearchRestaurants = () => {
           },
         }}
         query={{
-          key: GOOGLE_MAPS_APIKEY,
-          language: "en",
+          key: GOOGLE_MAPS_PLACES_APIKEY,
         }}
         minLength={2}
         enablePoweredByContainer={false}
@@ -62,6 +61,10 @@ const SearchRestaurants = () => {
             </View>
           </View>
         )}
+        onPress={(data, details) => {
+          const city = data.description.split(",")[0];
+          cityHandler(city);
+        }}
       />
     </View>
   );
