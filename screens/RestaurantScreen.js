@@ -4,6 +4,7 @@ import About from "../components/RestaurantDetail/About";
 import { Divider, Icon } from "@rneui/themed";
 import MenuItems from "../components/RestaurantDetail/MenuItems";
 import { useNavigation } from "@react-navigation/native";
+import ViewCart from "../components/RestaurantDetail/ViewCart";
 
 const foods = [
   {
@@ -50,6 +51,7 @@ const RestaurantScreen = ({ route }) => {
 
   return (
     <View className="flex-1">
+      {/* GO BACK BUTTON */}
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("EatsScreen");
@@ -58,6 +60,8 @@ const RestaurantScreen = ({ route }) => {
       >
         <Icon name="chevron-left" size={32} />
       </TouchableOpacity>
+      {/* END GO BACK BUTTON */}
+
       <About route={route} />
       <Divider width={1.8} style={{ marginVertical: 20 }} />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -65,6 +69,7 @@ const RestaurantScreen = ({ route }) => {
           <MenuItems foods={foods} key={index} />
         ))}
       </ScrollView>
+      <ViewCart navigation={navigation} restaurantName={route.params.name} />
     </View>
   );
 };
