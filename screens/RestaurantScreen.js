@@ -1,8 +1,9 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import About from "../components/RestaurantDetail/About";
-import { Divider } from "@rneui/themed";
+import { Divider, Icon } from "@rneui/themed";
 import MenuItems from "../components/RestaurantDetail/MenuItems";
+import { useNavigation } from "@react-navigation/native";
 
 const foods = [
   {
@@ -45,8 +46,18 @@ const foods = [
 ];
 
 const RestaurantScreen = ({ route }) => {
+  const navigation = useNavigation();
+
   return (
     <View className="flex-1">
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("EatsScreen");
+        }}
+        className="absolute top-9 left-3 z-50 p-1 rounded-full bg-slate-100/30"
+      >
+        <Icon name="chevron-left" size={32} />
+      </TouchableOpacity>
       <About route={route} />
       <Divider width={1.8} style={{ marginVertical: 20 }} />
       <ScrollView showsVerticalScrollIndicator={false}>
