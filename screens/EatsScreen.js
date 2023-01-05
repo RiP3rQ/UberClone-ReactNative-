@@ -70,7 +70,6 @@ const EatsScreen = ({ navigation }) => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <FoodCategories />
-        {/* CONTAINER FOR RESTAURANT_ITEMS COMPONENTS*/}
         <View className="">
           <RestaurantItem
             restaurantData={restaurantData}

@@ -64,7 +64,8 @@ const RestaurantInfo = ({ name, rating }) => (
         {name}
       </Text>
       <Text style={{ fontSize: 13 }} className="text-gray-500">
-        30-45 minutes
+        {Math.floor(Math.random() * (30 - 15 + 1) + 15)} -{" "}
+        {Math.floor(Math.random() * (60 - 31 + 1) + 31)} minutes
       </Text>
     </View>
     <View className="bg-[#a5a0a0] h-8 w-8 items-center justify-center rounded-full">

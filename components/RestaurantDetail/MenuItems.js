@@ -1,11 +1,19 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { Divider } from "@rneui/themed";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const MenuItems = ({ foods }) => {
   return (
     <View>
-      <View className="flex-row justify-between m-5">
+      <View className="flex-row justify-evenly m-5">
+        <BouncyCheckbox
+          iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+          fillColor="green"
+          innerIconStyle={{
+            borderRadius: 8, // to make it a little round increase the value accordingly
+          }}
+        />
         <FoodInfo foods={foods} />
         <FoodImage image={foods.image} />
       </View>
