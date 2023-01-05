@@ -5,6 +5,8 @@ import SearchRestaurants from "../components/Eats/SearchRestaurants";
 import FoodCategories from "../components/Eats/FoodCategories";
 import RestaurantItem from "../components/Eats/RestaurantItem";
 import { YELP_APIKEY } from "@env";
+import BottomTabs from "../components/Eats/BottomTabs";
+import { Divider } from "@rneui/themed";
 
 const localRestaurants = [
   {
@@ -60,8 +62,6 @@ const EatsScreen = () => {
     getRestaurantsFromYelp();
   }, [city, activeTab]);
 
-  console.log(restaurantData);
-
   return (
     <View className="bg-white flex-1">
       <View className="mt-10 p-3">
@@ -75,6 +75,8 @@ const EatsScreen = () => {
           <RestaurantItem restaurantData={restaurantData} />
         </View>
       </ScrollView>
+      <Divider width={1} />
+      <BottomTabs />
     </View>
   );
 };

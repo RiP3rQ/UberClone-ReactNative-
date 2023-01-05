@@ -51,14 +51,17 @@ const SearchRestaurants = ({ cityHandler }) => {
             >
               <Ionicons name="close-circle-outline" size={24} />
             </TouchableOpacity>
-            <View className="flex-row mr-2 bg-white p-2 rounded-3xl items-center">
+            <TouchableOpacity
+              className="flex-row mr-2 bg-white p-2 rounded-3xl items-center"
+              onPress={() => autoComplete.current.focus()}
+            >
               <AntDesing
                 name="clockcircle"
                 size={11}
                 style={{ marginRight: 6 }}
               />
               <Text>Search</Text>
-            </View>
+            </TouchableOpacity>
           </View>
         )}
         onPress={(data, details) => {
