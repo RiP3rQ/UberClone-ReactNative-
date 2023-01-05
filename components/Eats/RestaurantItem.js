@@ -11,7 +11,16 @@ const RestaurantItem = ({ restaurantData }) => {
         <TouchableOpacity
           activeOpacity={1}
           key={index}
-          onPress={() => navigation.navigate("RestaurantScreen")}
+          onPress={() =>
+            navigation.navigate("RestaurantScreen", {
+              name: restaurant.name,
+              image: restaurant.image_url,
+              price: restaurant.price,
+              reviews: restaurant.review_count,
+              rating: restaurant.rating,
+              categories: restaurant.categories,
+            })
+          }
         >
           <View className="mt-2 p-4 bg-white">
             <RestaurantImage

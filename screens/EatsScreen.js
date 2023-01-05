@@ -38,7 +38,7 @@ const localRestaurants = [
   },
 ];
 
-const EatsScreen = () => {
+const EatsScreen = ({ navigation }) => {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("Rybnik");
   const [activeTab, setActiveTab] = useState("Delivery");
@@ -72,7 +72,10 @@ const EatsScreen = () => {
         <FoodCategories />
         {/* CONTAINER FOR RESTAURANT_ITEMS COMPONENTS*/}
         <View className="">
-          <RestaurantItem restaurantData={restaurantData} />
+          <RestaurantItem
+            restaurantData={restaurantData}
+            navigation={navigation}
+          />
         </View>
       </ScrollView>
       <Divider width={1} />

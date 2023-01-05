@@ -1,26 +1,22 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-const yelpRestaurantInfo = {
-  name: "Essa dobra Restauracja Koks",
-  image:
-    "https://www.blueosa.com/wp-content/uploads/2020/01/the-best-top-10-indian-dishes.jpg",
-  price: "$$",
-  reviews: "1500",
-  rating: 4.9,
-  categories: [{ title: "Thai" }, { title: "Comfort Food" }],
-};
+const About = ({ route }) => {
+  const { name, image, price, reviews, rating, categories } = route.params;
+  const formattedCategories = categories.map((cat) => cat.title).join(" · ");
+  const description = `${formattedCategories} ${
+    price ? " · " + price : ""
+  }🎟  · ${rating}⭐ · (${reviews}+)`;
 
-const { name, image, price, reviews, rating, categories } = yelpRestaurantInfo;
-const formattedCategories = categories.map((cat) => cat.title).join(" · ");
-const description = `${formattedCategories} ${
-  price ? " · " + price : ""
-} · 🎟  · ${rating}⭐ · (${reviews}+)`;
-
-const About = () => {
   return (
     <View>
-      <RestaurantImage image={image} />
+      <RestaurantImage
+        image={
+          image
+            ? image
+            : "https://www.blueosa.com/wp-content/uploads/2020/01/the-best-top-10-indian-dishes.jpg"
+        }
+      />
       <RestaurantTitle name={name} />
       <RestaurantDescription description={description} />
     </View>
