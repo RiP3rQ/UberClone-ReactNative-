@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import About from "../components/RestaurantDetail/About";
 import { Divider } from "@rneui/themed";
@@ -46,10 +46,14 @@ const foods = [
 
 const RestaurantScreen = () => {
   return (
-    <View>
+    <View className="flex-1">
       <About />
       <Divider width={1.8} style={{ marginVertical: 20 }} />
-      <MenuItems foods={foods} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {foods.map((foods, index) => (
+          <MenuItems foods={foods} key={index} />
+        ))}
+      </ScrollView>
     </View>
   );
 };
