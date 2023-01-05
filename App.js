@@ -7,6 +7,7 @@ import MapScreen from "./screens/MapScreen";
 import EatsScreen from "./screens/EatsScreen";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import RestaurantScreen from "./screens/RestaurantScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,13 @@ export default function App() {
               <Stack.Screen
                 name="EatsScreen"
                 component={EatsScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="RestaurantScreen"
+                component={RestaurantScreen}
                 options={{
                   headerShown: false,
                 }}

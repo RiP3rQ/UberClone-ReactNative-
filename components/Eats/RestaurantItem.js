@@ -1,12 +1,18 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const RestaurantItem = ({ restaurantData }) => {
+  const navigation = useNavigation();
   return (
     <>
       {restaurantData.map((restaurant, index) => (
-        <TouchableOpacity activeOpacity={1} key={index}>
+        <TouchableOpacity
+          activeOpacity={1}
+          key={index}
+          onPress={() => navigation.navigate("RestaurantScreen")}
+        >
           <View className="mt-2 p-4 bg-white">
             <RestaurantImage
               image={
