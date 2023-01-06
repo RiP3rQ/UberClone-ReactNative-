@@ -38,13 +38,12 @@ const ViewCart = () => {
     setLoading(true);
     addDoc(collection(db, "orders"), {
       items: items,
-      restaurantName: restaurantName,
       createdAt: serverTimestamp(),
     }).then(() => {
       setTimeout(() => {
         setLoading(false);
         navigation.navigate("OrderCompleteScreen");
-      }, 2500);
+      }, 100);
     });
   };
 

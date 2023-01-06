@@ -5,7 +5,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_TO_CART, selectCart } from "../../slices/cartSlice";
 
-const MenuItems = ({ foods, restaurantName }) => {
+const MenuItems = ({ foods, restaurantName, hideCheckbox, marginLeft }) => {
   const dispatch = useDispatch();
   const { items } = useSelector(selectCart);
 
@@ -15,25 +15,33 @@ const MenuItems = ({ foods, restaurantName }) => {
   return (
     <View>
       <View className="flex-row justify-evenly m-5">
-        <BouncyCheckbox
-          iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
-          fillColor="green"
-          innerIconStyle={{
-            borderRadius: 8, // to make it a little round increase the value accordingly
-          }}
-          onPress={(checkboxValue) =>
-            dispatch(
-              ADD_TO_CART({
-                ...foods,
-                restaurantName: restaurantName,
-                checkboxValue: checkboxValue,
-              })
-            )
-          }
-          isChecked={isFoodInCart(foods, items)}
-        />
+        {hideCheckbox ? (
+          <></>
+        ) : (
+          <BouncyCheckbox
+            iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+            fillColor="green"
+            innerIconStyle={{
+              borderRadius: 8, // to make it a little round increase the value accordingly
+            }}
+            onPress={(checkboxValue) =>
+              dispatch(
+                ADD_TO_CART({
+                  ...foods,
+                  restaurantName: restaurantName,
+                  checkboxValue: checkboxValue,
+                })
+              )
+            }
+            isChecked={isFoodInCart(foods, items)}
+          />
+        )}
+
         <FoodInfo foods={foods} />
-        <FoodImage image={foods.image} />
+        <FoodImage
+          image={foods.image}
+          marginLeft={marginLeft ? marginLeft : 0}
+        />
       </View>
       <Divider width={0.5} orientation="vertical" />
     </View>
@@ -50,9 +58,9 @@ const FoodInfo = ({ foods }) => (
   </View>
 );
 
-const FoodImage = ({ image }) => (
+const FoodImage = ({ image, marginLeft }) => (
   <Image
     source={{ uri: image }}
-    style={{ height: 100, width: 100, borderRadius: 8 }}
+    style={{ height: 100, width: 100, borderRadius: 8, marginLeft: marginLeft }}
   />
 );
