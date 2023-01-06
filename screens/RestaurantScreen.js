@@ -87,7 +87,7 @@ const RestaurantScreen = ({ route }) => {
         onPress={() => {
           navigation.navigate("EatsScreen");
         }}
-        className="absolute top-9 left-3 z-50 p-1 rounded-full bg-slate-100/30"
+        className="absolute top-9 left-3 z-40 p-1 rounded-full bg-slate-100/30"
       >
         <Icon name="chevron-left" size={32} />
       </TouchableOpacity>

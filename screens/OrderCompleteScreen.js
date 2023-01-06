@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
 import { db } from "../firebase";
 import MenuItems from "../components/RestaurantDetail/MenuItems";
@@ -11,8 +11,10 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { selectCart } from "../slices/cartSlice";
+import { CLEAR_CART, selectCart } from "../slices/cartSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Icon } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 
 export default function OrderCompleteScreen() {
   const [lastOrder, setLastOrder] = useState({
@@ -27,7 +29,10 @@ export default function OrderCompleteScreen() {
     ],
   });
   const [loading, setLoading] = useState(null);
+  const [popUp, setPopUp] = useState(true);
   const { items, restaurantName } = useSelector(selectCart);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const total = items
     .map((item) => Number(item.price.replace("$", "")))
@@ -52,10 +57,50 @@ export default function OrderCompleteScreen() {
     return () => unsubscribe();
   }, [db]);
 
-  console.log(lastOrder);
+  useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        if (!popUp) {
+          // If we don't have unsaved changes, then we don't need to do anything
+          return;
+        }
+
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+
+        // Prompt the user before leaving the screen
+        Alert.alert("Leaving already?", "Are you sure to leave the screen?", [
+          { text: "Don't leave", style: "cancel", onPress: () => {} },
+          {
+            text: "Leave",
+            style: "destructive",
+            // If the user confirmed, then we dispatch the action we blocked earlier
+            // This will continue the action that had triggered the removal of the screen
+            onPress: () => {
+              dispatch(CLEAR_CART());
+              navigation.dispatch(e.data.action);
+              navigation.navigate("EatsScreen");
+            },
+          },
+        ]);
+      }),
+    [popUp, navigation]
+  );
 
   return (
     <SafeAreaView className="flex-1 bg-white">
+      {/* GO BACK BUTTON */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("EatsScreen");
+          dispatch(CLEAR_CART());
+        }}
+        className="absolute top-9 left-3 z-40 p-1 rounded-full bg-black/30"
+      >
+        <Icon name="chevron-left" size={32} color="white" />
+      </TouchableOpacity>
+      {/* END GO BACK BUTTON */}
+
       {/* green checkmark */}
       <View className="m-4 items-center h-full">
         <LottieView
@@ -83,7 +128,7 @@ export default function OrderCompleteScreen() {
           )}
 
           <LottieView
-            className="h-48 self-center"
+            className="h-48 self-center mb-6"
             source={require("../assets/animations/cooking.json")}
             autoPlay
             speed={0.5}

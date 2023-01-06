@@ -13,6 +13,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { db } from "../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 const ViewCart = () => {
   const { items, restaurantName } = useSelector(selectCart);
@@ -23,6 +24,10 @@ const ViewCart = () => {
 
   const pressHandler = useCallback(() => {
     bottomSheetRef.current.expand();
+  }, []);
+
+  const closeModal = useCallback(() => {
+    bottomSheetRef.current.close();
   }, []);
 
   const total = items
@@ -36,6 +41,7 @@ const ViewCart = () => {
 
   const addOrderToFireBase = () => {
     setLoading(true);
+    closeModal();
     addDoc(collection(db, "orders"), {
       items: items,
       createdAt: serverTimestamp(),
@@ -43,9 +49,11 @@ const ViewCart = () => {
       setTimeout(() => {
         setLoading(false);
         navigation.navigate("OrderCompleteScreen");
-      }, 100);
+      }, 2500);
     });
   };
+
+  console.log(items);
 
   const checkoutModalContent = () => {
     return (
@@ -110,6 +118,19 @@ const ViewCart = () => {
       >
         {checkoutModalContent()}
       </Modal>
+
+      {loading ? (
+        <View className="bg-black absolute opacity-60 justify-center items-center h-full w-full z-50">
+          <LottieView
+            style={{ height: 200 }}
+            source={require("../../assets/animations/scanner.json")}
+            autoPlay
+            speed={3}
+          />
+        </View>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

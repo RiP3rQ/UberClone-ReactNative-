@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Divider } from "@rneui/themed";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,12 @@ const MenuItems = ({ foods, restaurantName, hideCheckbox, marginLeft }) => {
   const { items } = useSelector(selectCart);
 
   const isFoodInCart = (foods, items) =>
-    Boolean(items.find((item) => item.title === foods.title));
+    Boolean(items?.find((item) => item.title === foods.title));
+
+  useEffect(() => {
+    if (!items || !foods) return;
+    isFoodInCart();
+  }, [items, foods]);
 
   return (
     <View>

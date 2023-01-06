@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   selectedItems: {
     items: [],
-    restaurantName: "",
   },
 };
 
@@ -15,7 +14,6 @@ export const cartSlice = createSlice({
       if (action.payload.checkboxValue) {
         state.selectedItems = {
           items: [...state.selectedItems.items, action.payload],
-          restaurantName: action.payload.restaurantName,
         };
       } else {
         state.selectedItems = {
@@ -24,14 +22,16 @@ export const cartSlice = createSlice({
               (item) => item.title !== action.payload.title
             ),
           ],
-          restaurantName: action.payload.restaurantName,
         };
       }
+    },
+    CLEAR_CART: (state) => {
+      state.selectedItems.items = [];
     },
   },
 });
 
-export const { ADD_TO_CART } = cartSlice.actions;
+export const { ADD_TO_CART, CLEAR_CART } = cartSlice.actions;
 
 // Selectors
 export const selectCart = (state) => state.cart.selectedItems;

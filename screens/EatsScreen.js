@@ -40,7 +40,7 @@ const localRestaurants = [
 
 const EatsScreen = ({ navigation }) => {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
-  const [city, setCity] = useState("Rybnik");
+  const [city, setCity] = useState("Warsaw");
   const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = () => {
