@@ -118,7 +118,7 @@ const AddNavFavorites = forwardRef(
         </TouchableWithoutFeedback>
         <PanGestureHandler onGestureEvent={gestureHandler}>
           <Animated.View
-            className="absolute top-0 right-0 bottom-0 left-0 rounded-t-xl z-50"
+            className="absolute top-0 right-0 bottom-0 left-0 rounded-t-xl z-40"
             style={[
               animationStyle,
               {
