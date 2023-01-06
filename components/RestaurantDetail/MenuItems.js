@@ -32,7 +32,7 @@ const MenuItems = ({ foods, restaurantName }) => {
           }
           isChecked={isFoodInCart(foods, items)}
         />
-        <FoodInfo foods={foods} /> 
+        <FoodInfo foods={foods} />
         <FoodImage image={foods.image} />
       </View>
       <Divider width={0.5} orientation="vertical" />
