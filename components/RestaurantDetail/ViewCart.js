@@ -4,17 +4,22 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../slices/cartSlice";
 import OrderItem from "./OrderItem";
 import Modal from "../Uber/AddNavFavorites";
 import { FlatList } from "react-native-gesture-handler";
+import { db } from "../../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 const ViewCart = () => {
   const { items, restaurantName } = useSelector(selectCart);
   const { height } = useWindowDimensions();
   const bottomSheetRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   const pressHandler = useCallback(() => {
     bottomSheetRef.current.expand();
@@ -28,6 +33,20 @@ const ViewCart = () => {
     style: "currency",
     currency: "USD",
   });
+
+  const addOrderToFireBase = () => {
+    setLoading(true);
+    addDoc(collection(db, "orders"), {
+      items: items,
+      restaurantName: restaurantName,
+      createdAt: serverTimestamp(),
+    }).then(() => {
+      setTimeout(() => {
+        setLoading(false);
+        navigation.navigate("OrderCompleteScreen");
+      }, 2500);
+    });
+  };
 
   const checkoutModalContent = () => {
     return (
@@ -53,7 +72,10 @@ const ViewCart = () => {
           <Text>{totalUSD}</Text>
         </View>
         <View className="flex-row justify-center absolute bottom-5 items-center right-0 left-0">
-          <TouchableOpacity className="bg-black items-center mt-5 p-3 rounded-3xl w-72 relative">
+          <TouchableOpacity
+            className="bg-black items-center mt-5 p-3 rounded-3xl w-72 relative"
+            onPress={() => addOrderToFireBase()}
+          >
             <Text className="text-white text-xl">Checkout</Text>
             <Text className="absolute right-5 text-white text-sm top-4">
               {total ? totalUSD : ""}
