@@ -64,9 +64,13 @@ const RestaurantScreen = ({ route }) => {
 
       <About route={route} />
       <Divider width={1.8} style={{ marginVertical: 20 }} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} className="pb-36">
         {foods.map((foods, index) => (
-          <MenuItems foods={foods} key={index} />
+          <MenuItems
+            foods={foods}
+            key={index}
+            restaurantName={route.params.name}
+          />
         ))}
       </ScrollView>
       <ViewCart navigation={navigation} restaurantName={route.params.name} />
