@@ -53,8 +53,6 @@ const ViewCart = () => {
     });
   };
 
-  console.log(items);
-
   const checkoutModalContent = () => {
     return (
       <View className="flex-1 bg-white h-full p-4">
